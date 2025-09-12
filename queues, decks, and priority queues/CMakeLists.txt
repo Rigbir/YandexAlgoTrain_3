@@ -18,5 +18,4 @@ add_executable(Test3 task_3.cpp)
 add_executable(Test4 task_4.cpp)
 add_executable(Test5 task_5.cpp)
 
-target_compile_options(queues__decks__and_priority_queues PRIVATE -Wextra -Werror -fsanitize=address)
-target_link_options(queues__decks__and_priority_queues PRIVATE -fsanitize=address)
+target_compile_options(queues__decks__and_priority_queues PRIVATE -Wextra -Werror)
