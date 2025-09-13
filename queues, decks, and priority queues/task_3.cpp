@@ -133,7 +133,7 @@ int main() {
             {"back",      [&]() { std::cout << back(d)      << '\n'; }},
             {"size",      [&]() { std::cout << size(d)      << '\n'; }},
             {"clear",     [&]() { std::cout << clear(d)     << '\n'; }},
-            {"exit",      [&]() { std::cout << "bye\n"; }}
+            {"exit",      [&]() { std::cout << "bye\n"; exit(0); }}
     };
 
     while (std::getline(std::cin, inputLine)) {

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <functional>
+#include <map>
 
 struct Node {
     Node* next;
@@ -76,8 +78,15 @@ std::string clear(Queue*& q) {
 
 int main() {
     Queue* q = nullptr;
-
     std::string inputLine;
+
+    std::map<std::string, std::function<void()>> commandsMap{
+        {"pop",     [&]() { std::cout << pop(q)     << '\n'; }},
+        {"front",   [&]() { std::cout << front(q)   << '\n'; }},
+        {"size",    [&]() { std::cout << size(q)    << '\n'; }},
+        {"clear",   [&]() { std::cout << clear(q)   << '\n'; }},
+        {"exit",    [&]() { std::cout << "bye\n"; exit(0); }}
+    };
 
     while (std::getline(std::cin, inputLine)) {
         std::istringstream iss(inputLine);
@@ -88,17 +97,8 @@ int main() {
             if (int n; iss >> n) {
                 std::cout << push(q, n) << '\n';
             }
-        } else if (command == "pop") {
-            std::cout << pop(q) << '\n';
-        } else if (command == "front") {
-            std::cout << front(q) << '\n';
-        } else if (command == "size") {
-            std::cout << size(q) << '\n';
-        } else if (command == "clear") {
-            std::cout << clear(q) << '\n';
-        } else if (command == "exit") {
-            std::cout << "bye" << '\n';
-            break;
+        } else if (commandsMap.contains(command)) {
+            commandsMap[command]();
         } else {
             break;
         }
