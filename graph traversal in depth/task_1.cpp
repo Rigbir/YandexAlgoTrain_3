@@ -4,8 +4,22 @@
 
 #include <iostream>
 #include <vector>
-#include <queue>
 #include <algorithm>
+
+void dfs(const std::vector<std::vector<int>>& graph,
+         std::vector<bool>& visited,
+         std::vector<int>& result,
+         const int v) {
+
+    visited[v] = true;
+    result.push_back(v);
+    for (const int to : graph[v]) {
+        if (!visited[to]) {
+            visited[to] = true;
+            dfs(graph, visited, result, to);
+        }
+    }
+}
 
 int main() {
     int n, m;
@@ -21,22 +35,8 @@ int main() {
 
     std::vector<bool> visited(n + 1, false);
     std::vector<int> result;
-    std::queue<int> q;
 
-    q.push(1);
-    visited[1] = true;
-
-    while (!q.empty()) {
-        int v = q.front();
-        q.pop();
-        result.push_back(v);
-        for (int to : graph[v]) {
-            if (!visited[to]) {
-                visited[to] = true;
-                q.push(to);
-            }
-        }
-    }
+    dfs(graph, visited, result, 1);
 
     std::ranges::sort(result);
 
